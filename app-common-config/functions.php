@@ -10,12 +10,14 @@
 
     }
 
-    //Upload file
+    //Logout
     function logout() {
+
         session_destroy();
         header('location:index.php');
     }
 
+    //Create CSRF TOKEN
     function csrfToken($salt) {
 
         $csrf_value=bin2hex(mt_rand().time());
@@ -26,3 +28,17 @@
         <br/><br/>";
     }
 
+    // Sanitize input data
+    function sanitizePostData($input) {
+
+        // Trim leading and trailing spaces
+        $input = trim($input);
+        
+        // Remove HTML tags
+        $input = strip_tags($input);
+        
+        // Sanitize input using filter_var()
+        $input = filter_var($input, FILTER_SANITIZE_STRING);
+        
+        return $input;
+    }

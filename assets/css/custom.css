@@ -1,0 +1,70 @@
+/* custom.css */
+.container {
+    height:auto;
+    width:100%;
+}
+.form-container {
+    height:auto;
+    width:auto;
+}
+form {
+    min-height: 50vh;
+}
+@media screen and (max-width: 1024px) {
+    form {
+        height:auto;
+        width:auto;
+        padding:5px;
+        text-align: center;
+        background: whitesmoke;
+    }
+}
+@media screen and (min-width: 1024px) {
+    form {
+        height:auto;
+        width:49%;
+        padding:5px;
+        text-align: center;
+        background: whitesmoke;
+    }
+    #register {
+        float:left;
+    }
+    #login {
+        float:right;
+    }
+}
+h1 {
+    background:#4696;
+    padding: 10px;
+    text-align:center;
+    color: #fff;
+    font-family: math;
+}
+h2 {
+    background:#7867;
+    padding:5px;
+    color: #fff;
+    border: solid 0.1px #000;
+}
+.success {
+    color: green;
+    font-size:20px;
+}
+.error {
+    color: red;
+    font-size:20px;
+}
+.nav {
+    display: flex;
+}
+.nav li {
+    margin: 20px;
+    list-style: none;
+}
+footer {
+    position: fixed;
+    bottom: 0;
+    width:98%;
+    text-align: center;
+}

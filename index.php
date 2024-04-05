@@ -7,11 +7,15 @@
     @session_start();
 
     // echo '<pre>'; print_r($_SERVER); die;
-
     //Login, Register Script
     if(isset($_POST['Register']) && 'Register' == $_POST['Register']) {
         //Register script
-        $isValid=checkIsValidRequest($_POST['csrf_value'], $_POST['csrf_token'], $salt);
+        $isValid=checkIsValidRequest($_POST['csrf_value'], $_POST['csrf_token'], $salt); //Validate CSRF
+
+        // Sanitize $_POST fields
+        foreach ($_POST as $key => $value) {
+            $_POST[$key] = sanitizePostData($value);
+        }
         if($isValid) {
             //Is user exists
             $isExists=false;
@@ -49,7 +53,12 @@
         $rmessage= "<div style='color: red;font-size:20px;'>Invalid Request. Please check if reuest made is valid from allowed domain url.</div>"; //die;
     } else if(isset($_POST['Login']) && 'Login' == $_POST['Login']) {
         //Login script
-        $isValid=checkIsValidRequest($_POST['csrf_value'], $_POST['csrf_token'], $salt);
+        $isValid=checkIsValidRequest($_POST['csrf_value'], $_POST['csrf_token'], $salt); //Validate CSRF
+
+        // Sanitize $_POST fields
+        foreach ($_POST as $key => $value) {
+            $_POST[$key] = sanitizePostData($value);
+        }
         if($isValid) {
             //Is user exists
             $isExists=false;
@@ -84,105 +93,8 @@
         $message= "<div style='color: red;font-size:20px;'>Invalid Request. Please check if reuest made is valid from allowed domain url.</div>"; //die;
     }
     // echo '<pre>'; print_r($csrf); die;
+
+    require_once('app-common-config/header.php');
+    require_once('content/index.php');
+    require_once('app-common-config/footer.php');
 ?>
-<!DocType HTML>
-<html>
-    <head>
-        <title>Login System</title>
-        <style>
-            .container {
-                height:auto;
-                width:100%;
-            }
-            .form-container {
-                height:auto;
-                width:auto;
-            }
-            form {
-                height:auto;
-                width:49%;
-                padding:5px;
-            }
-            h1 {
-                background:#4696;
-                padding: 10px;
-                text-align:center;
-            }
-            h2 {
-                background:#7867;
-                padding:5px;
-                border: solid 0.1px #000;
-            }
-            .success {
-                color: green; font-size:20px;
-            }
-            .error {
-                color: red; font-size:20px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-
-            <div class="form-container">
-                <h1>Login System</h1>
-                <br/>
-                <?php if(isset($message)) {
-                    echo $message.'<br/>';
-                }?>
-                <form style="float:left" action="<?php echo $_SERVER['PHP_SELF']?>" method="POST" enctype="multipart/form-data">
-                    <h2>Register</h2>
-                    <?php if(isset($rmessage)) {
-                        echo $rmessage;
-                    }
-                    csrfToken($salt);
-                    ?>
-
-                    <label for="uname">Username</label>
-                    <input id="uname" name="uname" type="email" maxlength="100" required/>
-                    <br/><br/>
-
-                    <label for="pwd">Password</label>
-                    <input id="pwd" name="pwd" type="password" maxlength="8" required/>
-                    <br/><br/>
-
-                    <label for="uimg">User Image</label>
-                    <input id="uimg" onchange="validateSize()" name="uimg" type="file" accept="image/png, image/jpeg, image/jpg" required/>
-                    <br/>
-                    <span style="font-size:10px;color:blue;">Valid Up To 2MB</span>
-                    <br/><br/>
-
-                    <input type="Submit" name="Register" value="Register" />
-                </form>
-
-                <form style="float:right" action="<?php echo $_SERVER['PHP_SELF']?>" method="POST">
-                    <h2>Login</h2>
-                    <?php if(isset($lmessage)) {
-                        echo $lmessage;
-                    }
-                    csrfToken($salt);
-                    ?>
-
-                    <label for="username">Username</label>
-                    <input id="username" name="username" type="email" maxlength="100" required/>
-                    <br/><br/>
-
-                    <label for="password">Password</label>
-                    <input id="password" name="password" type="password" maxlength="8" required/>
-                    <br/><br/>
-
-                    <input type="Submit" name="Login" value="Login" />
-                </form>
-            </div>
-        </div>
-        <script type="text/javascript">
-            function validateSize(input) {
-
-            }
-        </script>
-    </body>
-</html>
-<?php
-//Close connection
-if(isset($con))
-    $con->close();?>
