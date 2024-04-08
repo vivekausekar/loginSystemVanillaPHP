@@ -3,10 +3,10 @@
     require_once('app-common-config/variables.php');
     require_once('app-common-config/dbconnection.php');
     require_once('app-common-config/functions.php');
+
     //Session init
     @session_start();
 
-    // echo '<pre>'; print_r($_SERVER); die;
     //Login, Register Script
     if(isset($_POST['Register']) && 'Register' == $_POST['Register']) {
         //Register script
@@ -67,15 +67,12 @@
             $stmt->bind_param("ss", $_POST['username'], $pwd);
             if($stmt->execute()) {
                 $result = $stmt->get_result();
-                // echo '<pre>'; print_r($result); die;
                 while ($row = $result->fetch_assoc()) {
                     // echo '<pre>'; print_r($row); die;
-                    // if($pwd === $row['pass']) {
-                        $isExists=true;
-                        $_SESSION['user_id']=$row['user_id'];
-                        $_SESSION['uname']=$row['uname'];
-                        $_SESSION['uimg']=$row['img'];
-                    // }
+                    $isExists=true;
+                    $_SESSION['user_id']=$row['user_id'];
+                    $_SESSION['uname']=$row['uname'];
+                    $_SESSION['uimg']=$row['img'];
                 }
             }
             if($isExists) {
@@ -88,13 +85,11 @@
         $lmessage= "<div style='color: red;font-size:20px;'>Invalid Request. Please check if reuest made is valid from allowed domain url.</div>"; //die
 
     } else if('/loginSystemVanillaPHP/index.php'==$_SERVER['REQUEST_URI'] OR '/loginSystemVanillaPHP/'==$_SERVER['REQUEST_URI']) {
-
     } else {
         $message= "<div style='color: red;font-size:20px;'>Invalid Request. Please check if reuest made is valid from allowed domain url.</div>"; //die;
     }
-    // echo '<pre>'; print_r($csrf); die;
 
+    //Display Page View
     require_once('app-common-config/header.php');
     require_once('content/index.php');
     require_once('app-common-config/footer.php');
-?>

@@ -6,3 +6,8 @@ function validateSize(input) {
         return false;
     }
 }
+
+function menuToggle() {
+    const toggleMenu = document.querySelector(".user-account-menu");
+    toggleMenu.classList.toggle("active");
+}

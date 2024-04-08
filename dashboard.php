@@ -3,10 +3,10 @@
     require_once('app-common-config/variables.php');
     require_once('app-common-config/dbconnection.php');
     require_once('app-common-config/functions.php');
+
     //Session init
     @session_start();
 
-    // echo '<pre>'; print_r($_SESSION); die;
     //Dashboard, Logout Script
     if(isset($_SESSION['user_id'])) {
         $csrf_value=bin2hex(mt_rand().time());
@@ -27,7 +27,7 @@
     } else
         $message= "<div style='color: red;font-size:20px;'>Tried with Invalid User Login, Please <a href='index.php'>Login</a> to View Dashboard Page.</div>"; //die;
 
+    //Display Page View
     require_once('app-common-config/header.php');
     require_once('content/dashboard.php');
     require_once('app-common-config/footer.php');
-?>

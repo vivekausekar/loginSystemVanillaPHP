@@ -40,6 +40,8 @@ h1 {
     text-align:center;
     color: #fff;
     font-family: math;
+    position: relative;
+    width: 100%;
 }
 h2 {
     background:#7867;
