@@ -37,6 +37,10 @@
                 h1 {
                     position:fixed;
                 }
+                #logout {
+                    width: 100px;
+                    height: 30px;
+                }
             </style>
         <?php } ?>
     </head>
@@ -65,7 +69,7 @@
                                 <li>
                                     <form id="user-nav" id="" action="<?php echo './dashboard.php';?>" method="POST" >
                                         <?php csrfToken($salt); ?>
-                                        <input type="submit" name="Logout" value="Logout"></button>
+                                        <input id="logout" type="submit" name="Logout" value="Logout"></button>
                                     </form>
                                 </li>
                             <?php }?>

@@ -70,3 +70,7 @@ footer {
     width:98%;
     text-align: center;
 }
+.mandetory {
+    color:red;
+    font-size:12px;
+}

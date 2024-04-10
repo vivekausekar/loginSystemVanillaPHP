@@ -7,6 +7,36 @@
     //Session init
     @session_start();
 
+    //Validate Authentication
+    if(isset($_SESSION['user_id'])) {           //With session
+        header('location:dashboard.php'); die;
+    } else if(isset($_COOKIE['user'])) {        //With Cookie
+        //Is user exists
+        $isExists=false;
+        $pwd=sha1($_POST['password']);
+        $stmt= $con->prepare("SELECT * FROM users WHERE user_id=?");
+        $stmt->bind_param("i", $_COOKIE['user']);
+        if($stmt->execute()) {
+            $result = $stmt->get_result();
+            while ($row = $result->fetch_assoc()) {
+                // echo '<pre>'; print_r($row); die;
+                $isExists=true;
+                $_SESSION['user_id']=$row['user_id'];
+                $_SESSION['uname']=$row['uname'];
+                $_SESSION['uimg']=$row['img'];
+            }
+        }
+        header('location:dashboard.php'); die;
+    }
+
+    // echo '<pre>';
+    // print_r($_COOKIE);echo '</pre>';
+    // echo '<pre>';
+    // print_r($_SESSION);echo '</pre>';
+    // echo '<pre>';
+    // print_r($_POST);
+    // die;
+
     //Login, Register Script
     if(isset($_POST['Register']) && 'Register' == $_POST['Register']) {
         //Register script
@@ -73,6 +103,17 @@
                     $_SESSION['user_id']=$row['user_id'];
                     $_SESSION['uname']=$row['uname'];
                     $_SESSION['uimg']=$row['img'];
+
+                    if(isset($_POST['remember_me'])) {
+                        //Set cookies
+                        $value=$_SESSION['user_id'];
+                        $expire=time() + (60); //86400=1 day
+                        $path='/';
+                        $secure=false;
+                        $httponly=true;
+                        // setcookie('user_session', $value, $expire, $path, $base_url, $secure, $httponly);
+                        setcookie('user', $value, $expire, $path, '', $secure, $httponly);
+                    }
                 }
             }
             if($isExists) {
@@ -86,7 +127,7 @@
 
     } else if('/loginSystemVanillaPHP/index.php'==$_SERVER['REQUEST_URI'] OR '/loginSystemVanillaPHP/'==$_SERVER['REQUEST_URI']) {
     } else {
-        $message= "<div style='color: red;font-size:20px;'>Invalid Request. Please check if reuest made is valid from allowed domain url.</div>"; //die;
+        $_SESSION['message']= "<div style='text-align:center;color: red;font-size:20px;'>Invalid Request. Please check if reuest made is valid from allowed domain url.</div>"; //die;
     }
 
     //Display Page View

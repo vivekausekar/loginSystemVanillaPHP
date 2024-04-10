@@ -13,6 +13,8 @@
     function logout() {
 
         session_destroy();
+        setcookie('user', '', time() - 3600, "/");
+        unset($_COOKIE['user']);
         header('location:index.php');
     }
 
@@ -37,7 +39,7 @@
         $input = strip_tags($input);
         
         // Sanitize input using filter_var()
-        $input = filter_var($input, FILTER_SANITIZE_STRING);
+        $input = filter_var($input, FILTER_UNSAFE_RAW); //FILTER_SANITIZE_STRING is Deprecated
         
         return $input;
     }
