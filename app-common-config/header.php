@@ -51,10 +51,10 @@
                     <nav>
                         <!-- Navigation Links -->
                         <ul class="nav navbar-nav">
-                            <li><a href="#"><img src="assets/img/logo.png" height=30 wisth=100 /></a></li>
+                            <li><a href="#"><img style="border-radius: 30px;" src="assets/img/logo.png" height=30 wisth=100 /></a></li>
                             <li class="active"><a href="#">Home</a></li>
                             <li><a href="#">Services</a></li>
-                            <li><a href="#">About US</a></li>
+                            <li><a href="#">About Us</a></li>
                             <li><a href="#">Contact</a></li>
                             <?php if(isset($_SESSION['user_id'])) {?>
                             <li style="margin-left: auto;">
