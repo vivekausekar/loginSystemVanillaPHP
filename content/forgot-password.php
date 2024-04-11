@@ -3,7 +3,6 @@
         unset($_SESSION['message']);
     } else { ?>
         <div class="section">
-            <h1>Login System - User Dashboard</h1>            
+            <h1>Login System - Forgot Password</h1>            
         </div>
     <?php } ?>
-    

@@ -107,7 +107,7 @@
                     if(isset($_POST['remember_me'])) {
                         //Set cookies
                         $value=$_SESSION['user_id'];
-                        $expire=time() + (60); //86400=1 day
+                        $expire=time() + (86400); //86400=1 day
                         $path='/';
                         $secure=false;
                         $httponly=true;

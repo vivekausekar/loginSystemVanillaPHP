@@ -42,6 +42,7 @@ h1 {
     font-family: math;
     position: relative;
     width: 100%;
+    z-index: -1;
 }
 h2 {
     background:#7867;

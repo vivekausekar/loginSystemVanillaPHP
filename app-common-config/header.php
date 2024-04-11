@@ -3,7 +3,7 @@
     <head>
         <title>Login System</title>
         <link href="assets/css/custom.css" rel="stylesheet">
-        <?php if('/loginSystemVanillaPHP/dashboard.php'==$_SERVER['REQUEST_URI']) {?>
+        <?php if(isset($_SESSION['user_id'])) {?>
             <style>
                 .form-container {
                     margin: auto;
@@ -23,7 +23,7 @@
                 .user-account-menu {
                     list-style: none;
                     float: right;
-                    background: deepskyblue;
+                    background: lightskyblue;
                     margin-top: -30px;
                     padding: 5px;
                     display: none;
@@ -62,10 +62,22 @@
                                 <br/>
                                 <label for="uname">Welcome, <?php if(isset($_SESSION['uname'])) echo htmlspecialchars($_SESSION['uname']);?></label>
                             </li>
+                            <?php } else { ?>
+                                <li style="margin-left: auto;"><a href="<?php echo $base_url;?>">Login</a></li>
                             <?php }?>
                         </ul>
                         <ul class="user-account-menu">
                             <?php if(isset($_SESSION['user_id'])) {?>
+                                <li>
+                                    <a href="dashboard.php">
+                                        Dashboard
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="change-password.php">
+                                        Change Password
+                                    </a>
+                                </li>
                                 <li>
                                     <form id="user-nav" id="" action="<?php echo './dashboard.php';?>" method="POST" >
                                         <?php csrfToken($salt); ?>
