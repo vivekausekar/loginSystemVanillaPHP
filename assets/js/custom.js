@@ -7,7 +7,8 @@ function validateSize(input) {
     }
 }
 
-function menuToggle() {
+function menuToggle(e) {
     const toggleMenu = document.querySelector(".user-account-menu");
     toggleMenu.classList.toggle("active");
+    e.classList.toggle("equiv");
 }

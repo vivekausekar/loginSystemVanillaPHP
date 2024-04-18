@@ -46,8 +46,7 @@
 
                 <input type="radio" id="remember_me" name="remember_me"/>
                 <label for="remember_me">Remember Me</label>
-                <br/><br/>
-
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="forgot-password.php">Forgot Password?</a>
                 <br/><br/>
 
