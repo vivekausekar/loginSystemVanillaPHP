@@ -7,6 +7,7 @@
     //Session init
     @session_start();
 
+    
     //Validate Authentication
     if(isset($_SESSION['user_id'])) {           //With session
         header('location:dashboard.php'); die;
